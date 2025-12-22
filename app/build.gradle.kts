@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.example.moviestime"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.moviestime"
@@ -48,6 +48,7 @@ android {
 dependencies {
 
     // Dependencies from toml
+    implementation("com.google.firebase:firebase-auth:23.0.0") // Ensure version is explicitly set if conflict occurs
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -57,6 +58,10 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.foundation)
+
+    // Note: If libs.firebase.firestore.ktx is broken, we use the manual version below.
+    // implementation(libs.firebase.firestore.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -64,6 +69,8 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    implementation("cafe.adriel.voyager:voyager-navigator:1.0.0-rc06")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.52")
@@ -93,6 +100,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
+  
+
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
@@ -103,7 +112,20 @@ dependencies {
     // Material Icons Extended
     implementation("androidx.compose.material:material-icons-extended:1.6.8")
 
-    // Youtube Player
-    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.0.0")
-}
+    // --- FIREBASE FIXED DEPENDENCIES (Added Versions) ---
+    implementation("com.google.firebase:firebase-firestore:25.1.0")
+    implementation("com.google.firebase:firebase-storage:21.0.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
+    // Youtube Player
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+    implementation("androidx.compose.ui:ui-viewbinding:1.6.0")
+
+    val voyagerVersion = "1.1.0-beta02"
+
+    // Navigator
+    implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
+
+    // Screen Model
+    implementation("cafe.adriel.voyager:voyager-screenmodel:$voyagerVersion")
+}
